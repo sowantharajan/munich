@@ -26,7 +26,7 @@ Now at this point you should be able to start nexus if you want to use your defa
 sudo vim /opt/nexus/nexus-2.14.13-01/bin/jsw/conf/wrapper.conf and set
 
 wrapper.java.command=/opt/java/jdk1.8.0_201/bin/java
-Then if you start the service with sudo service nexus you should be able to see visit http://localhost:8081/nexus/ and see Nexus.
+Then if you start the service with sudo service nexus (sudo ./nexus start) you should be able to see visit http://localhost:8081/nexus/ and see Nexus.
 
 //https://bneijt.nl/blog/post/nexus-on-ubuntu-12.10-installation/
 
