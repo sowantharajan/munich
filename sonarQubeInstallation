@@ -7,3 +7,6 @@ Create user in security tab and generate an access token, 50997f4a8c26d5698cccee
 Create a project SPRINGBOOT with a key
 Download SonarQube scanner from https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner
 Additional configuration from https://docs.sonarqube.org/display/SCAN/Advanced+SonarQube+Scanner+Usages
+
+
+my generated Local token: efb72424dfa9f3604f3c05dd3331478ce742be53
