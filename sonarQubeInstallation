@@ -1,0 +1,9 @@
+Setup & Startup SonarQube
+Download the SonarQube package from https://www.sonarqube.org/#downloads
+Start sonar server: SONAR_HOME\bin\windows-x86-32\StartSonar.bat (for 32 bit Windows)
+Start sonar server: SONAR_HOME/sonarqube-7.7/bin/linux-x86-64 ./sonar.sh start (for 64 bit Linux)
+Open Sonar admin page “http://localhost:9000“. Default credentials – admin/admin
+Create user in security tab and generate an access token, 50997f4a8c26d5698cccee30cf398c0ed9b98de0
+Create a project SPRINGBOOT with a key
+Download SonarQube scanner from https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner
+Additional configuration from https://docs.sonarqube.org/display/SCAN/Advanced+SonarQube+Scanner+Usages
