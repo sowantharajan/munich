@@ -1,0 +1,9 @@
+Setup & Startup Tomcat
+Download jenkins.war from https://jenkins.io/download
+Put the jenkins.war file in webapps folder of Tomcat home
+Set Environment Variables as follows,
+SET JENKINS_HOME=”C:/Users/vishwaka/Documents/Workspace/git/jenkinstest/cisetup/jenkins_home”
+SET CATALINA_OPTS=”-DJENKINS_HOME=C:/Users/vishwaka/Documents/Workspace/git/jenkinstest/cisetup/jenkins_home”
+Start the server using startup.bat
+
+https://blog.sonatype.com/continuous-integration-in-pipeline-as-code-environment-with-jenkins-jacoco-nexus-and-sonarqube
