@@ -1,0 +1,11 @@
+DevImage folder -> vagrantfile -> puppet.environment_path = "environments" --> 
+environments folder ==> DB/Master folder --> site.pp --> misc,java,oracle,ambari (modules folder) 
+==> ambari folder for hdp installation after agent,server installation --> 
+configure_cluster.pp for entire hdp setup through ambari Blueprints (blueprint.json file) with help of Rest API.
+
+
+
+https://community.hortonworks.com/articles/47170/automate-hdp-installation-using-ambari-blueprints.html
+
+What are Ambari Blueprints ?
+Ambari Blueprints are definition of your HDP cluster in “JSON” format, it contents information about all the hosts in your cluster, their components, mapping of stack components with each hosts or hostgroups and other cool stuff. Using Blueprints we can call Ambari APIs to completely automate HDP installation process.
