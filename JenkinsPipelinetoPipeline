@@ -1,0 +1,81 @@
+import java.time.LocalDate
+import java.time.LocalDateTime
+
+pipeline {
+agent
+    {
+        node {
+                label 'master'
+                customWorkspace "${env.JobPath}"
+              }
+    }
+    stages 
+    {
+        stage('Start') {
+            steps {
+                echo 'Hello'
+            }
+        }
+        stage ('Invoke_newpipeline') {
+            steps {
+               xmlRead()  
+	println "xmlmethod done"  
+            }
+        }
+        stage('End') {
+            steps {
+                echo 'Bye'
+            }
+        }
+    }
+}
+
+@NonCPS
+		def xmlRead() {
+			def deployments = new XmlSlurper().parse(new File("/home/.jenkins/workspace/Pipeline/DeploymentPlanner.xml"))
+			LocalDate today = LocalDate.now();
+			LocalDateTime currentTime = LocalDateTime.now();
+			def branches = [:]
+			deployments.children().each {
+				Environment ->
+				def envirn=Environment.'@Name'.toString()
+				Environment.children().findAll {
+					status ->
+					status.Deploy_Status.text().equalsIgnoreCase("NO")  && ((status.Deploy_Category.text().equalsIgnoreCase("Release") &&
+					status.Depoly_Date.text().substring(0, 10)==today.plusDays(1).toString()) || (status.Deploy_Category.text().equalsIgnoreCase("defect") &&
+					status.Depoly_Date.text().substring(0, 10)==today.toString() && status.Depoly_Date.text() > currentTime.toString().substring(0, 16).replace('T', ' ')))
+				}
+				.each {
+					Milestoneour ->
+					def deploycategory=Milestoneour.Deploy_Category.toString()
+					def deploydate=Milestoneour.Depoly_date.toString()
+					def Milestname=Milestoneour.'@Name'.toString()
+
+					branches["branch${Milestoneour}"] = {
+						build job: 'newpipeline', parameters: [
+							string(name: 'Milest',  value: Milestname),
+							string(name: 'Deploy_category',  value: deploycategory),
+							string(name: 'Depoly_date', value: deploydate),
+							string(name: 'Environment',  value: envirn)
+						], wait: false
+					}
+				}
+			}
+			parallel branches
+		}
+    
+    //XML file
+
+<?xml version="1.0"?>
+<Deployments>
+
+<Environment Name='E2E'>
+  <Milestone Name='msval1'><Deploy_Category>Defect</Deploy_Category><Depoly_Date>2019-05-29 20:00</Depoly_Date><Deploy_Status>no</Deploy_Status><Deploy_Downtime>60</Deploy_Downtime></Milestone>
+  <Milestone Name='msval'><Deploy_Category>release</Deploy_Category><Depoly_Date>2019-05-30 12:00</Depoly_Date><Deploy_Status>no</Deploy_Status><Deploy_Downtime>60</Deploy_Downtime></Milestone>
+</Environment>
+
+<Environment Name='PROD'>
+  <Milestone Name='msval2'><Deploy_Category>Defect2</Deploy_Category><Depoly_Date>2019-05-25 09:00</Depoly_Date><Deploy_Status>no</Deploy_Status><Deploy_Downtime>60</Deploy_Downtime></Milestone>
+</Environment>
+
+</Deployments>
